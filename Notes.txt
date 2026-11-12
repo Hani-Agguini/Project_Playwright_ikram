@@ -1,0 +1,243 @@
+AUTOMATISATION DES TESTS AVEC PLAYWRIGHT
+Lien géneral : https://meet.google.com/meet/rgu-ccuv-qzp
+Mon lien perso : https://meet.google.com/meet/irp-hkiq-jyx
+
+
+==================================================
+1. LES OUTILS D'AUTOMATISATION
+==================================================
+
+Il existe plusieurs frameworks permettant d'automatiser les tests logiciels. Ils utilisent différents langages de programmation.
+
+- Playwright : JavaScript / TypeScript
+- Cypress : JavaScript
+- Selenium : Java, Python, JavaScript, etc.
+- Robot Framework : Python
+
+
+==================================================
+2. LE CROSS-BROWSER TESTING AVEC PLAYWRIGHT
+==================================================
+
+Playwright permet de réaliser du Cross-Browser Testing.
+
+Cela signifie qu'on peut exécuter les mêmes tests automatisés sur plusieurs navigateurs afin de vérifier que l'application fonctionne correctement sur chacun d'entre eux.
+
+Playwright prend en charge trois moteurs de navigateurs :
+
+- Chrome / Edge : Chromium
+- Firefox : Firefox
+- Safari : WebKit
+
+Avantage :
+Playwright peut installer et utiliser directement les moteurs de navigateurs nécessaires sur la machine de test. Il n'est pas nécessaire d'avoir installé manuellement les navigateurs sur son ordinateur.
+
+Attention : WebKit est le moteur utilisé pour tester le comportement proche de Safari, mais ce n'est pas le véritable navigateur Safari.
+
+
+==================================================
+3. ARCHITECTURE DE PLAYWRIGHT
+==================================================
+
+L'architecture peut être représentée en cinq blocs :
+
+BLOC 1 – ENVIRONNEMENT DE DÉVELOPPEMENT
+
+- VS Code
+- TypeScript
+
+Rôle : écrire le code des tests automatisés.
+
+
+BLOC 2 – PLAYWRIGHT
+
+- Outils et framework d'automatisation.
+
+Rôle : interpréter et exécuter les instructions des tests.
+
+
+BLOC 3 – INSTANCE PAGE
+
+- Objet Page du navigateur.
+
+Rôle : permet à Playwright d'interagir avec une page web :
+  - Cliquer sur des boutons.
+  - Remplir des champs.
+  - Naviguer entre les pages.
+  - Vérifier la présence d'éléments.
+
+
+BLOC 4 – MOTEUR DU NAVIGATEUR
+
+Playwright utilise différents moteurs :
+
+- Chromium
+- Firefox
+- WebKit
+
+Rôle : exécuter les actions sur le moteur de navigateur sélectionné.
+
+
+BLOC 5 – APPLICATION WEB
+
+C'est l'application que l'on souhaite tester et dont on observe le fonctionnement :
+- Connexion.
+- Navigation.
+- Formulaires.
+- Panier.
+- Commandes, etc.
+
+
+SCHÉMA DE L'ARCHITECTURE :
+
+VS Code + TypeScript
+        |
+        v
+    Playwright
+        |
+        v
+   Instance Page
+        |
+        v
+Moteur du navigateur
+(Chromium / Firefox / WebKit)
+        |
+        v
+   Application Web
+
+
+==================================================
+4. INSTALLATION DE PLAYWRIGHT
+==================================================
+
+Pour installer Playwright dans un nouveau projet :
+
+Commande :
+npm init playwright@latest
+
+Cette commande permet notamment de :
+- Initialiser le projet.
+- Installer Playwright Test.
+- Configurer les premiers fichiers.
+- Choisir le langage JavaScript ou TypeScript.
+
+Pour installer les navigateurs nécessaires :
+
+Commande :
+npx playwright install
+
+Cette commande télécharge les navigateurs utilisés par Playwright :
+- Chromium
+- Firefox
+- WebKit
+
+
+==================================================
+5. LES FICHIERS IMPORTANTS DU PROJET
+==================================================
+
+A. NODE_MODULES
+
+C'est le dossier dans lequel sont stockées les dépendances du projet.
+
+Il contient les bibliothèques et les packages nécessaires au fonctionnement de Playwright et des autres outils utilisés dans le projet.
+
+
+B. PACKAGE.JSON
+
+C'est le fichier qui contient les informations du projet, notamment :
+- Le nom du projet.
+- Les dépendances.
+- Les scripts permettant de lancer les tests.
+
+
+C. PACKAGE-LOCK.JSON
+
+Il permet de conserver les versions exactes des dépendances installées afin de garantir une installation cohérente du projet.
+
+
+D. PLAYWRIGHT.CONFIG.TS
+
+C'est le fichier de configuration de Playwright, écrit en TypeScript.
+
+Il permet notamment de configurer :
+- Les navigateurs sur lesquels lancer les tests.
+- Le nombre de tests exécutés en parallèle.
+- Le navigateur par défaut.
+- Les délais d'attente (timeouts).
+- Les rapports de tests.
+- Les paramètres de lancement des tests.
+
+
+==================================================
+6. LES Tests
+==================================================
+
+mode headfull c est lorsque on lance avec une interface graphique avec option --ui
+mode headless c est lorsque on lance sans une interface graphique 
+
+Test flaky c est des test instabble 
+
+ils sont stocker dans le dossier tests 
+// pour executer un test 
+npx playwright test
+npx playwright test nom(sans spec.ts)
+
+// pour afficher le rapport 
+npx playwright show-report
+
+
+// Aller dans l url
+await page.goto("https://www.saucedemo.com/")
+
+¨Pour chercher un element on utilise locator 
+soit css selector  (ID,class,data_test,name,placeholder) 
+soit locator d'accessilibility (sur playwright)
+
+==================================================
+7. LES Hooks
+==================================================
+
+Mécanisme qui s'exécute avant et apres chaque test automatiquement (aftereach , beforeach)
+
+==================================================
+8. LES Tags
+==================================================
+
+Mécanisme qui permet de classifier les test selon leurs logique metier 
+cibler les test qu 'on veut cibler 
+
+Test Smoke c est les tests essentiel au bon fonctionnement
+
+==================================================
+9. LES locator
+==================================================
+
+CSS : #id, .class
+
+accessilibility : byrole , byname
+
+==================================================
+10. POM  Page object model (design pattern)
+==================================================
+
+permet de séparer la logique metier et la logique des tests 
+on crée une classe pour chaque page
+var: ()=> this.page.locator("") 
+
+==================================================
+11. DDT (Data driven Testing)
+==================================================
+
+C'est une approche de test qui consiste a executer le meme scenario de test plusieurs fois avec différents jeux de données 
+
+le but de la méthode:
+_ Eviter la duplication 
+_ ameliorer la couverture des test 
+_ il facilite la maintenabilité des scripts
+
+==================================================
+12. Fixtures
+==================================================
+
+le but etat amelioration de la qualité du code et eviter la duplication
